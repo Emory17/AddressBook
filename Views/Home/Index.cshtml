@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="col-12 col-md-6">
+        <div class="ms-5">
+            <h1 class="heroTitle">All Your <span class="texthighlight">Contacts</span> in one place!</h1>
+            <div class="subtitle">
+                Organize your events by keeping everyone in the loop.
+                Experience the power of Addressbook - demo today!
+                <br/>
+                <br/>
+                <strong>Built with pride using cutting edge tech:</strong>
+                <br/>
+                <div class="d-flex align-items-center mt-3">
+                    <figure>
+                        <img src="https://devicons.railway.app/i/dot-net.svg" class="imgicon" />
+                        <figcaption>ASP.NET</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="https://devicons.railway.app/i/csharp.svg" class="imgicon" />
+                        <figcaption>C#</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="https://devicons.railway.app/i/postgresql.svg" class="imgicon" />
+                        <figcaption>Postgres</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="https://devicons.railway.app/i/bootstrap.svg" class="imgicon" />
+                        <figcaption>Bootstrap</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="https://devicons.railway.app/i/railway-dark.svg" class="imgicon" />
+                        <figcaption>Railway</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6">
+        <img src="~/img/contactProLanding.png" class="img-fluid" />
+    </div>
+
+    <div class="col-12">
+        <div class="row mt-5">
+            <div class="col-12 btn btn-block text-center">
+                <a class="btn btn-lg btn-outline-primary rounded-pill" asp-area="" asp-controller="Contacts" asp-action="Index">My Contacts</a>
+            </div>
+        </div>
+    </div>
+</div>

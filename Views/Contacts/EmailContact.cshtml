@@ -1,0 +1,51 @@
+﻿@model AddressBook.Models.ViewModels.EmailContactViewModel
+
+<style>
+    .ck-editor_editable_inline{
+        min-height: 400px;
+    }
+</style>
+
+<h1 class="mt-5">Email Contact: @Model.Contact?.FullName</h1>
+<div class="p-2">
+    <form asp-action="EmailContact" asp-controller="Contacts" method="post">
+        <input type="hidden" asp-for="EmailData!.GroupName"/>
+        <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
+            <div class="col col-md-12">
+                <label asp-for="EmailData!.EmailAddress" class="form-label">To:</label>
+                <textarea type="email" readonly class="form-control" asp-for="EmailData!.EmailAddress" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="row row-cols-1 g-3">
+            <div class="col">
+                <label asp-for="EmailData!.EmailSubject" class="form-label">Subject:</label>
+                <input type="text" class="form-control" asp-for="EmailData!.EmailSubject" />
+            </div>
+            <div class="col">
+                <label asp-for="EmailData!.EmailBody" class="form-label">Message:</label>
+                <textarea class="form-control" id="editor" rows=10 asp-for="EmailData!.EmailBody"></textarea>
+            </div>
+            <div class="col text-end">
+                <button class="btn btn-primary rounded-pill btnlinks" type="submit">Send</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <!--CK Editor-->
+    <script src="https://cdn.ckeditor.com/ckeditor5/37.1.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                licenseKey: '',
+            })
+            .then(editor => {
+                window.editor = editor;
+            });
+    </script>
+}
