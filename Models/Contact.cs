@@ -10,7 +10,7 @@ namespace AddressBook.Models
         //Primary Key
         public int Id { get; set; }
 
-        // Foreign Key
+        //Foreign Key
         [Required]
         public string? AppUserId { get; set; }
 

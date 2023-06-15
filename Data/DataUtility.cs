@@ -35,21 +35,25 @@ namespace AddressBook.Data
         {
             var dbContextSvc = svcProvider.GetRequiredService<ApplicationDbContext>();
             var userManagerSvc = svcProvider.GetRequiredService<UserManager<AppUser>>();
+            var configurationSvc = svcProvider.GetRequiredService<IConfiguration>();
 
             //Align the database by checking Migration
             await dbContextSvc.Database.MigrateAsync();
 
             //Seed Demo User(s)
-            await SeedDemoUsersAsync(userManagerSvc);
+            await SeedDemoUsersAsync(userManagerSvc, configurationSvc);
         }
 
         //Demo Users Seed Method
-        private static async Task SeedDemoUsersAsync(UserManager<AppUser> userManagerSvc)
+        private static async Task SeedDemoUsersAsync(UserManager<AppUser> userManagerSvc, IConfiguration configuration)
         {
+            string? demoEmail = configuration["DemoLoginEmail"] ?? Environment.GetEnvironmentVariable("DemoLoginEmail");
+            string? demoPassword = configuration["DemoLoginPassword"] ?? Environment.GetEnvironmentVariable("DemoLoginPassword");
+
             AppUser demoUser = new AppUser()
             {
-                UserName = "demologin@addressbook.com",
-                Email = "demologin@addressbook.com",
+                UserName = demoEmail,
+                Email = demoEmail,
                 FirstName = "Demo",
                 LastName = "User",
                 EmailConfirmed = true
@@ -57,11 +61,11 @@ namespace AddressBook.Data
 
             try
             {
-                AppUser? user = await userManagerSvc.FindByEmailAsync(demoUser.Email);
+                AppUser? user = await userManagerSvc.FindByEmailAsync(demoUser.Email!);
 
                 if(user == null)
                 {
-                    await userManagerSvc.CreateAsync(demoUser,"Abc&123!");
+                    await userManagerSvc.CreateAsync(demoUser,demoPassword!);
                 }
             }
             catch (Exception ex)
